@@ -25,6 +25,12 @@ jobs:
         with:
           node-version: "lts/*"
 
+      - name: Cache npm
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+
       - name: Setup @antfu/ni
         run: npm i -g @antfu/ni
 
