@@ -40,10 +40,12 @@ watch(count, (newVal) => {
 watch(double, (newVal) => {
   console.log("double count changed to", newVal);
 });
-
-count.value = 1;
-count.value = 2;
 ```
+
+
+<!-- 
+The reactivuty is dependent on triggering events. In the flow of normal template rendering, you don't have to think too much of that, but in practice. Vue collects all changes in a `tick` and then
+-->
 
 ---
 
