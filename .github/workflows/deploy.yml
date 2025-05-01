@@ -25,11 +25,26 @@ jobs:
         with:
           node-version: "lts/*"
 
+      - name: Check if package-lock.json exists
+        id: check_lockfile
+        run: |
+          if [ -f package-lock.json ]; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+      - name: Compute lockfile hash
+        if: steps.check_lockfile.outputs.exists == 'true'
+        id: set_lockfile_hash
+        run: |
+          echo "lockfile_hash=${{ hashFiles('**/package-lock.json') }}" >> $GITHUB_OUTPUT
+
       - name: Cache npm
+        if: steps.check_lockfile.outputs.exists == 'true'
         uses: actions/cache@v4
         with:
           path: ~/.npm
-          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-npm-${{ steps.set_lockfile_hash.outputs.lockfile_hash }}
 
       - name: Setup @antfu/ni
         run: npm i -g @antfu/ni
