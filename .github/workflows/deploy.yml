@@ -26,25 +26,28 @@ jobs:
           node-version: "lts/*"
 
       - name: Check if yarn.lock exists
-        id: check_lockfile
+        id: check_yarn_lockfile
         run: |
           if [ -f yarn.lock ]; then
             echo "exists=true" >> $GITHUB_OUTPUT
           else
             echo "exists=false" >> $GITHUB_OUTPUT
           fi
-      - name: Compute lockfile hash
-        if: steps.check_lockfile.outputs.exists == 'true'
-        id: set_lockfile_hash
+
+      - name: Compute yarn.lock hash
+        if: steps.check_yarn_lockfile.outputs.exists == 'true'
+        id: set_yarn_lockfile_hash
         run: |
           echo "lockfile_hash=${{ hashFiles('**/yarn.lock') }}" >> $GITHUB_OUTPUT
 
-      - name: Cache npm
-        if: steps.check_lockfile.outputs.exists == 'true'
+      - name: Cache Yarn
+        if: steps.check_yarn_lockfile.outputs.exists == 'true'
         uses: actions/cache@v4
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-npm-${{ steps.set_lockfile_hash.outputs.lockfile_hash }}
+          path: |
+            ~/.cache/yarn
+            **/node_modules/.cache
+          key: ${{ runner.os }}-yarn-${{ steps.set_yarn_lockfile_hash.outputs.lockfile_hash }}
 
       - name: Setup @antfu/ni
         run: npm i -g @antfu/ni
