@@ -25,10 +25,10 @@ jobs:
         with:
           node-version: "lts/*"
 
-      - name: Check if package-lock.json exists
+      - name: Check if yarn.lock exists
         id: check_lockfile
         run: |
-          if [ -f package-lock.json ]; then
+          if [ -f yarn.lock ]; then
             echo "exists=true" >> $GITHUB_OUTPUT
           else
             echo "exists=false" >> $GITHUB_OUTPUT
@@ -37,7 +37,7 @@ jobs:
         if: steps.check_lockfile.outputs.exists == 'true'
         id: set_lockfile_hash
         run: |
-          echo "lockfile_hash=${{ hashFiles('**/package-lock.json') }}" >> $GITHUB_OUTPUT
+          echo "lockfile_hash=${{ hashFiles('**/yarn.lock') }}" >> $GITHUB_OUTPUT
 
       - name: Cache npm
         if: steps.check_lockfile.outputs.exists == 'true'
