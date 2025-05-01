@@ -28,7 +28,7 @@ Understanding how Vue tracks and updates state
 - `computed`, `watch`, and templates rely on this system
 
 ```ts {monaco-run}
-import {computed, watch, ref } from 'vue'
+import { computed, watch, ref } from "vue";
 const count = ref(0);
 
 const double = computed<number>(() => count.value * 2);
@@ -42,9 +42,9 @@ watch(double, (newVal) => {
 });
 ```
 
-
-<!-- 
-The reactivuty is dependent on triggering events. In the flow of normal template rendering, you don't have to think too much of that, but in practice. Vue collects all changes in a `tick` and then
+<!--
+The reactivity is dependent on triggering events. In the flow of normal template rendering, you don't have to think too much of that, but in practice. Vue collects all changes in a `tick` and then executes them all at once, for efficiency.
+Let's explore this and how the watchers interact with this.
 -->
 
 ---
@@ -56,7 +56,7 @@ The reactivuty is dependent on triggering events. In the flow of normal template
 - Updates trigger a reactive "effect" to re-run
 
 ```ts {monaco-run}
-import { watchEffect, reactive } from 'vue'
+import { watchEffect, reactive } from "vue";
 
 const state = reactive({ msg: "hello" });
 
