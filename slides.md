@@ -1,6 +1,8 @@
 ---
 title: Vue 3 Reactivity Deep Dive
+transition: fade
 layout: cover
+theme: apple-basic
 ---
 
 # Vue 3 Reactivity Deep Dive
@@ -213,6 +215,8 @@ const { name } = toRefs(user);
 - `ref`, `reactive`, `computed`, and `watch` serve distinct roles
 - Use advanced tools and patterns when complexity increases
 
+---
+layout: end
 ---
 
 ## Questions & Discussion
