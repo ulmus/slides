@@ -7,7 +7,7 @@ author: Jens Alm
 date: 2025-05-07
 description: Understanding how Vue tracks and updates state
 tags: [vue, reactivity, vue3]
-image: /assets/industrial-process-cogs-and-wheels.png
+image: /industrial-process-cogs-and-wheels.png
 ---
 
 # Vue 3 Reactivity Deep Dive
